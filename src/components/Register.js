@@ -1,6 +1,6 @@
 import React from 'react';
 import UserForm from './UserForm';
-import { register } from "../AuthService";
+import { register } from "./AuthService";
 
 const Register = () => {
   const handleRegister = async (email, password) => {

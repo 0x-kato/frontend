@@ -6,7 +6,8 @@ import Sheet from "@mui/joy/Sheet";
 import Typography from "@mui/joy/Typography";
 import { CssVarsProvider } from "@mui/joy/styles";
 import { Link } from "react-router-dom";
-import Login from "./Login";
+import React, { useState } from "react";
+import { login } from "./AuthService";
 
 const boxSX = {
   backgroundColor: "black",
@@ -27,14 +28,34 @@ const sheetSX = {
   gap: 2,
   borderRadius: "md",
   boxShadow: "lg",
-}
+};
+
+
 
 const LoginSheet = () => {
+  const [loginSuccess, setLoginSuccess] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
+    try {
+      // Call the login function from AuthService
+      const data = await login(email, password);
+      console.log(data);
+      setLoginSuccess(true);
+      // For testing, show login success data
+      // Here, you might want to redirect the user or save the login data/token
+    } catch (error) {
+      console.error("Failed to log in", error);
+      setLoginSuccess(false);
+      // Handle login failure (e.g., show an error message)
+    }
+  };
+
   return (
     <CssVarsProvider>
-      <Sheet
-        sx={sheetSX}
-      >
+      <Sheet sx={sheetSX} component="form" onSubmit={handleSubmit}>
         <div>
           <Typography level="h2" component="h1">
             Welcome to Scuffle.
@@ -47,18 +68,30 @@ const LoginSheet = () => {
             name="email"
             type="email"
             placeholder="degenerategambler@yahoo.ca"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </FormControl>
         <FormControl>
           <FormLabel>Password</FormLabel>
-          <Input name="password" type="password" placeholder="password" />
+          <Input
+            name="password"
+            type="password"
+            placeholder="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </FormControl>
-        <Button sx={boxSX}>
-          Log in
-          <Login />
-        </Button>
+        {loginSuccess && (
         <Typography
-          endDecorator={<Link href="/sign-up">Sign up</Link>}
+          sx={{ color: 'green', textAlign: 'center', mt: 2 }}
+        >
+          Success!
+        </Typography>
+      )}
+        <Button type="submit" sx={boxSX}>Log in</Button>
+        <Typography
+          endDecorator={<Link to="/sign-up">Sign up</Link>}
           fontSize="sm"
           sx={{ alignSelf: "center" }}
         >
@@ -70,3 +103,7 @@ const LoginSheet = () => {
 };
 
 export default LoginSheet;
+
+//make signup logic work and feed it to backend to verify with the database
+//need to have the handleSubmit function read the inputs from the "Inputs" in user sign up modal
+//need to push error message if it does not go through
