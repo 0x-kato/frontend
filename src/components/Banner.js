@@ -18,6 +18,10 @@ function Banner() {
     setAnchorEl(event.currentTarget);
   };
 
+  const handleLinkAccount = (event) => {
+    setAnchorEl(null);
+  };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -37,7 +41,7 @@ function Banner() {
           <Typography
             variant="h4"
             component="div"
-            sx={{ fontFamily: 'Monospace',fontWeight: "bold", flexGrow: 1 }}
+            sx={{ fontFamily: "Monospace", fontWeight: "bold", flexGrow: 1 }}
           >
             SCUFFLE
           </Typography>
@@ -68,9 +72,9 @@ function Banner() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>My account</MenuItem>
-                <MenuItem onClick={handleClose}>Send Tip</MenuItem>
-                <MenuItem onClick={handleClose}>Tip History</MenuItem>
+                <MenuItem onClick={handleLinkAccount}>Send Tip</MenuItem>
+                <MenuItem onClick={handleLinkAccount}>Tipping History</MenuItem>
+                <MenuItem onClick={handleClose}>Logout</MenuItem>
               </Menu>
             </div>
           )}

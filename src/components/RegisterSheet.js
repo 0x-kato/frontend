@@ -7,8 +7,7 @@ import Typography from "@mui/joy/Typography";
 import { CssVarsProvider } from "@mui/joy/styles";
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
-import { login } from "./AuthService";
-import { useNavigate } from 'react-router-dom';
+import { register } from "./AuthService";
 
 const boxSX = {
   backgroundColor: "black",
@@ -31,9 +30,10 @@ const sheetSX = {
   boxShadow: "lg",
 };
 
-const LoginSheet = () => {
-  const navigate = useNavigate();
-  const [loginSuccess, setLoginSuccess] = useState(false);
+const RegisterSheet = () => {
+  const [errorMessage, setErrorMessage] = useState("");
+  const [registerSuccess, setRegisterSuccess] = useState(false);
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -41,15 +41,15 @@ const LoginSheet = () => {
     e.preventDefault(); // Prevent default form submission behavior
     try {
       // Call the login function from AuthService
-      const data = await login(email, password);
+      const data = await register(username, email, password);
       console.log(data);
-      setLoginSuccess(true);
-      navigate('/tips');
+      setRegisterSuccess(true);
+      setErrorMessage("");
       // For testing, show login success data
       // Here, you might want to redirect the user or save the login data/token
     } catch (error) {
-      console.error("Failed to log in", error);
-      setLoginSuccess(false);
+      setRegisterSuccess(false);
+      setErrorMessage(error.message);
       // Handle login failure (e.g., show an error message)
     }
   };
@@ -59,10 +59,22 @@ const LoginSheet = () => {
       <Sheet sx={sheetSX} component="form" onSubmit={handleSubmit}>
         <div>
           <Typography level="h2" component="h1">
-            Welcome to Scuffle.
+            Register here!
           </Typography>
-          <Typography level="body-sm">Sign in to continue.</Typography>
+          <Typography level="body-sm">
+            Enter your information in the fields below.
+          </Typography>
         </div>
+        <FormControl>
+          <FormLabel>Username</FormLabel>
+          <Input
+            name="username"
+            type="username"
+            placeholder="reeeee"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </FormControl>
         <FormControl>
           <FormLabel>Email</FormLabel>
           <Input
@@ -83,26 +95,29 @@ const LoginSheet = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </FormControl>
-        {loginSuccess && (
+        {registerSuccess && (
           <Typography sx={{ color: "green", textAlign: "center", mt: 2 }}>
             Success!
           </Typography>
         )}
+        {!registerSuccess && errorMessage && (
+          <Typography sx={{ color: "red", textAlign: "center", mt: 2 }}>
+            {errorMessage}
+          </Typography>
+        )}
         <Button type="submit" sx={boxSX}>
-          Log in
+          Register
         </Button>
         <Typography
-          endDecorator={<Link to="/register">Sign up</Link>}
+          endDecorator={<Link to="/">Log in</Link>}
           fontSize="sm"
           sx={{ alignSelf: "center" }}
         >
-          Don't have an account?
+          Already signed up?
         </Typography>
       </Sheet>
     </CssVarsProvider>
   );
 };
 
-export default LoginSheet;
-
-//need to push error message if it does not go through
+export default RegisterSheet;
