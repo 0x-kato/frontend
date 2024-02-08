@@ -9,17 +9,31 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import FormGroup from "@mui/material/FormGroup";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
+import { useNavigate } from "react-router-dom";
 
 function Banner() {
   const [auth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const navigate = useNavigate();
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleLinkAccount = (event) => {
+  const handleSendTip = () => {
     setAnchorEl(null);
+    navigate("/tips");
+  };
+
+  const handleTippingHistory = () => {
+    setAnchorEl(null);
+    navigate("/tip-history");
+  };
+
+  const handleLogout = () => {
+    setAnchorEl(null);
+    // Add logout logic here
+    navigate("/");
   };
 
   const handleClose = () => {
@@ -72,9 +86,11 @@ function Banner() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleLinkAccount}>Send Tip</MenuItem>
-                <MenuItem onClick={handleLinkAccount}>Tipping History</MenuItem>
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
+                <MenuItem onClick={handleSendTip}>Send Tip</MenuItem>
+                <MenuItem onClick={handleTippingHistory}>
+                  Tipping History
+                </MenuItem>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </div>
           )}
