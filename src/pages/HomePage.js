@@ -4,7 +4,7 @@ import LoginSheet from "../components/LoginSheet";
 
 function HomePage() {
   return (
-    <div>
+    <div style={{ backgroundColor: '#9994a7', minHeight: '100vh' }}>
       <Banner />
       <LoginSheet />
     </div>

@@ -4,7 +4,7 @@ import RegisterSheet from "../components/RegisterSheet";
 
 function RegisterPage() {
   return (
-    <div>
+    <div style={{ backgroundColor: '#9994a7', minHeight: '100vh' }}>
         <Banner />
         <RegisterSheet />
     </div>

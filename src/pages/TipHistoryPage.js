@@ -1,10 +1,10 @@
 import React from "react";
+import Banner from "../components/Banner";
 
 function TipHistoryPage() {
   return (
-    <div>
-      <h1>Tip History</h1>
-      {/* Here you can include your form or any other content */}
+    <div style={{ backgroundColor: "#9994a7", minHeight: "100vh" }}>
+      <Banner />
     </div>
   );
 }

@@ -8,7 +8,7 @@ import { CssVarsProvider } from "@mui/joy/styles";
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import { login } from "./AuthService";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const boxSX = {
   backgroundColor: "black",
@@ -36,21 +36,20 @@ const LoginSheet = () => {
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+    e.preventDefault();
     try {
-      // Call the login function from AuthService
       const data = await login(email, password);
       console.log(data);
       setLoginSuccess(true);
-      navigate('/tips');
-      // For testing, show login success data
-      // Here, you might want to redirect the user or save the login data/token
+      setErrorMessage("");
+      navigate("/tips");
     } catch (error) {
       console.error("Failed to log in", error);
+      setErrorMessage(error.message);
       setLoginSuccess(false);
-      // Handle login failure (e.g., show an error message)
     }
   };
 
@@ -88,6 +87,11 @@ const LoginSheet = () => {
             Success!
           </Typography>
         )}
+        {!loginSuccess && errorMessage && (
+          <Typography sx={{ color: "red", textAlign: "left", mt: 2 }}>
+            {errorMessage}
+          </Typography>
+        )}
         <Button type="submit" sx={boxSX}>
           Log in
         </Button>
@@ -104,5 +108,3 @@ const LoginSheet = () => {
 };
 
 export default LoginSheet;
-
-//need to push error message if it does not go through

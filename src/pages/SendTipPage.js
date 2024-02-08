@@ -1,10 +1,14 @@
 import React from "react";
+import Banner from "../components/Banner";
+import TipSheet from "../components/TipSheet";
 
 function SendTipPage() {
   return (
-    <div>
-      <h1>Send Tip</h1>
-      {/* Here you can include your form or any other content */}
+    <div style={{ backgroundColor: '#9994a7', minHeight: '100vh' }}>
+      <div>
+        <Banner />
+        <TipSheet />
+      </div>
     </div>
   );
 }
