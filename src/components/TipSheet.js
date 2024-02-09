@@ -5,7 +5,8 @@ import Input from "@mui/joy/Input";
 import Sheet from "@mui/joy/Sheet";
 import Typography from "@mui/joy/Typography";
 import { CssVarsProvider } from "@mui/joy/styles";
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 const boxSX = {
   backgroundColor: "black",
@@ -29,6 +30,27 @@ const sheetSX = {
 };
 
 const TipSheet = () => {
+  const [balance, setBalance] = useState(0); // State to store the fetched balance
+  useEffect(() => {
+    const fetchBalance = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3333/users/balance",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+            },
+          }
+        );
+        setBalance(response.data);
+      } catch (error) {
+        console.error("Failed to fetch balance:", error);
+      }
+    };
+
+    fetchBalance();
+  }, []);
+
   return (
     <CssVarsProvider>
       <Sheet sx={sheetSX} component="form">
@@ -44,6 +66,9 @@ const TipSheet = () => {
         <FormControl>
           <FormLabel>Amount:</FormLabel>
           <Input name="amount" type="amount" placeholder="0.00" />
+          <Typography level="body1" sx={{ textAlign: "left", mt: 1 }}>
+            Your current balance: {balance}
+          </Typography>
         </FormControl>
         <Button type="submit" sx={boxSX}>
           Send tip!
