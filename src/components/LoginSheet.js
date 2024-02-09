@@ -42,6 +42,7 @@ const LoginSheet = () => {
     e.preventDefault();
     try {
       const data = await login(email, password);
+      localStorage.setItem("userId", data.user_id);
       console.log(data);
       setLoginSuccess(true);
       setErrorMessage("");

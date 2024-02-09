@@ -4,17 +4,19 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import FormGroup from "@mui/material/FormGroup";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { useNavigate } from "react-router-dom";
+import { logout } from "./AuthService";
 
 function Banner() {
   const [auth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
+  const username = localStorage.getItem("username") || null;
+  const isUsernameValid = username && username !== "undefined";
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -30,9 +32,15 @@ function Banner() {
     navigate("/tip-history");
   };
 
-  const handleLogout = () => {
+  const handleLogout = async (e) => {
+    e.preventDefault();
     setAnchorEl(null);
-    // Add logout logic here
+    try {
+      await logout();
+      console.log("successful logout");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
     navigate("/");
   };
 
@@ -44,14 +52,6 @@ function Banner() {
       <FormGroup></FormGroup>
       <AppBar position="static" sx={{ backgroundColor: "#000000" }}>
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            aria-label="menu"
-            sx={{ mr: 1, color: "#656565" }}
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography
             variant="h4"
             component="div"
@@ -60,7 +60,17 @@ function Banner() {
             SCUFFLE
           </Typography>
           {auth && (
-            <div>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              {isUsernameValid && (
+                <Typography
+                  variant="h6"
+                  component="div"
+                  sx={{ marginRight: 2 }} // Adjust spacing as needed
+                >
+                  {username}
+                </Typography>
+              )}
+
               <IconButton
                 size="large"
                 aria-label="account of current user"

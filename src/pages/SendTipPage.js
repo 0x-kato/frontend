@@ -4,7 +4,7 @@ import TipSheet from "../components/TipSheet";
 
 function SendTipPage() {
   return (
-    <div style={{ backgroundColor: '#9994a7', minHeight: '100vh' }}>
+    <div style={{ backgroundColor: '#bba0a0', minHeight: '100vh' }}>
       <div>
         <Banner />
         <TipSheet />
