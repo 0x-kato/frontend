@@ -5,7 +5,7 @@ import Input from "@mui/joy/Input";
 import Sheet from "@mui/joy/Sheet";
 import Typography from "@mui/joy/Typography";
 import { CssVarsProvider } from "@mui/joy/styles";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { register } from "./AuthService";
 
@@ -31,6 +31,7 @@ const sheetSX = {
 };
 
 const RegisterSheet = () => {
+  const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const [registerSuccess, setRegisterSuccess] = useState(false);
   const [username, setUsername] = useState("");
@@ -45,6 +46,7 @@ const RegisterSheet = () => {
       console.log(data);
       setRegisterSuccess(true);
       setErrorMessage("");
+      navigate("/tips");
       // For testing, show login success data
       // Here, you might want to redirect the user or save the login data/token
     } catch (error) {

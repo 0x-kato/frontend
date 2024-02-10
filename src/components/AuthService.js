@@ -22,9 +22,9 @@ export const login = async (email, password) => {
       email,
       password,
     });
+    localStorage.setItem("user_id", response.data.user_id.toString());
     localStorage.setItem("username", response.data.username);
     localStorage.setItem("access_token", response.data.tokens.access_token);
-    localStorage.setItem("refresh_token", response.data.tokens.refresh_token);
     console.log(response.data);
     return response.data;
   } catch (error) {
@@ -56,6 +56,6 @@ export const logout = async () => {
   } finally {
     localStorage.removeItem("username");
     localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
+    localStorage.removeItem("user_id");
   }
 };
