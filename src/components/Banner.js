@@ -55,7 +55,11 @@ function Banner() {
           <Typography
             variant="h4"
             component="div"
-            sx={{ fontFamily: "Monospace", fontWeight: "bold", flexGrow: 1 }}
+            sx={{
+              fontFamily: "Roboto, sans-serif",
+              fontWeight: "bold",
+              flexGrow: 1,
+            }}
           >
             SCUFFLE
           </Typography>
@@ -65,7 +69,7 @@ function Banner() {
                 <Typography
                   variant="h6"
                   component="div"
-                  sx={{ marginRight: 2 }} // Adjust spacing as needed
+                  sx={{ marginRight: 2 }}
                 >
                   {username}
                 </Typography>

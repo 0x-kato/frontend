@@ -9,7 +9,10 @@ export const register = async (username, email, password) => {
       email,
       password,
     });
-    return response.data;
+    localStorage.setItem("user_id", response.data.user_id.toString());
+    localStorage.setItem("username", response.data.username);
+    localStorage.setItem("access_token", response.data.tokens.access_token);
+    return response;
   } catch (error) {
     console.error("Registration error", error.response.data);
     throw new Error(error.response.data.message || "Registration failed.");
@@ -22,9 +25,14 @@ export const login = async (email, password) => {
       email,
       password,
     });
+
+    //using local storage of the user to store user information -- not best practice
+    //should use HTTP cookies from looking through various posts
     localStorage.setItem("user_id", response.data.user_id.toString());
     localStorage.setItem("username", response.data.username);
     localStorage.setItem("access_token", response.data.tokens.access_token);
+
+    //console.log for debugging purposes
     console.log(response.data);
     return response.data;
   } catch (error) {

@@ -39,20 +39,16 @@ const RegisterSheet = () => {
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+    e.preventDefault();
     try {
-      // Call the login function from AuthService
       const data = await register(username, email, password);
       console.log(data);
       setRegisterSuccess(true);
       setErrorMessage("");
       navigate("/tips");
-      // For testing, show login success data
-      // Here, you might want to redirect the user or save the login data/token
     } catch (error) {
       setRegisterSuccess(false);
       setErrorMessage(error.message);
-      // Handle login failure (e.g., show an error message)
     }
   };
 
