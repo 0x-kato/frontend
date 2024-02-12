@@ -2,4 +2,3 @@ To run the project, simple make sure that this is running on http://localhost:30
 
 ````bash
 npm run start```
-````
