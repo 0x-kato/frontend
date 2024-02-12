@@ -16,7 +16,6 @@ const TipSheet = () => {
   const [balance, setBalance] = useState(0);
   const [successMessage, setSuccessMessage] = useState("");
 
-  // Function to fetch balance
   const fetchBalance = async () => {
     try {
       const response = await axios.get("http://localhost:3333/users/balance", {
@@ -24,7 +23,7 @@ const TipSheet = () => {
           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
       });
-      console.log("Fetched balance:", response.data); // Debugging: Log fetched balance
+      console.log("Fetched balance:", response.data); //debug in browser console
       setBalance(response.data);
     } catch (error) {
       console.error("Failed to fetch balance:", error);

@@ -24,10 +24,15 @@ const TabPanel = (props) => {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+      {value === index && (
+        <Box sx={{ p: 1, fontFamily: "Roboto" }}>{children}</Box>
+      )}
     </div>
   );
 };
+
+const fontStyle = { textAlign: "left", fontWeight: "bold" };
+
 const paperStyle = {
   width: "100%",
   padding: "16px 32px",
@@ -80,20 +85,20 @@ const TipHistorySheet = () => {
 
         <TabPanel value={tabValue} index={0}>
           <Typography
-            variant="h5"
-            style={{ textAlign: "center", fontWeight: "bolder" }}
+            variant="h4"
+            style={{ textAlign: "center", fontWeight: "bold" }}
           >
             Tips Sent
           </Typography>
           <Table>
             <TableHead>
-              <TableRow style={{ textAlign: "center", fontFamily: "Roboto" }}>
-                <TableCell>Sender</TableCell>
-                <TableCell>Receiver</TableCell>
-                <TableCell>Amount</TableCell>
-                <TableCell>Time</TableCell>
-                <TableCell>Date</TableCell>
-                <TableCell>Status</TableCell>
+              <TableRow>
+                <TableCell style={fontStyle}>Sender</TableCell>
+                <TableCell style={fontStyle}>Receiver</TableCell>
+                <TableCell style={fontStyle}>Amount</TableCell>
+                <TableCell style={fontStyle}>Time</TableCell>
+                <TableCell style={fontStyle}>Date</TableCell>
+                <TableCell style={fontStyle}>Status</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -114,22 +119,23 @@ const TipHistorySheet = () => {
             </TableBody>
           </Table>
         </TabPanel>
+        {/*tips received below this line*/}
         <TabPanel value={tabValue} index={1}>
           <Typography
-            variant="h5"
-            style={{ textAlign: "center", fontWeight: "bolder" }}
+            variant="h4"
+            style={{ textAlign: "center", fontWeight: "bold" }}
           >
             Tips Received
           </Typography>
           <Table>
             <TableHead>
-              <TableRow style={{ textAlign: "center", fontFamily: "Roboto" }}>
-                <TableCell>Sender</TableCell>
-                <TableCell>Receiver</TableCell>
-                <TableCell>Amount</TableCell>
-                <TableCell>Time</TableCell>
-                <TableCell>Date</TableCell>
-                <TableCell>Status</TableCell>
+              <TableRow>
+                <TableCell style={fontStyle}>Sender</TableCell>
+                <TableCell style={fontStyle}>Receiver</TableCell>
+                <TableCell style={fontStyle}>Amount</TableCell>
+                <TableCell style={fontStyle}>Time</TableCell>
+                <TableCell style={fontStyle}>Date</TableCell>
+                <TableCell style={fontStyle}>Status</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
